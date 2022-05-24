@@ -2,8 +2,6 @@ package com.atlassian.plugins.confluence.markdown.ccma;
 
 import com.atlassian.confluence.user.ConfluenceUser;
 import com.atlassian.confluence.user.UserAccessor;
-import com.atlassian.migration.app.PaginatedMapping;
-import com.atlassian.migration.app.gateway.AppCloudMigrationGateway;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ConfluenceImport;
 import com.atlassian.sal.api.user.UserKey;
 import com.atlassian.user.Group;
@@ -34,39 +32,8 @@ class UserService {
         this.pageRestrictionService = pageRestrictionService;
     }
 
-    /**
-     * Populate a use who has edit permission for each page.
-     */
-    void enrichCloudUser(AppCloudMigrationGateway gateway, String transferId, List<PageData> pageDataList) {
-        final Map<String, String> userMap = getUserMap(gateway, transferId);
-        final Map<Long, PermData> spacePermissions = spacePermissionService.getPermissions(pageDataList);
-        final Map<String, PermData> pageRestrictions = pageRestrictionService.getPermissions(pageDataList);
 
-        final Helper helper = new Helper();
-        for (PageData pageData : pageDataList) {
-            final String cloudUserKey = helper.pickUserWhoHasEditPerm(pageData, spacePermissions, pageRestrictions, userMap);
-            pageData.setCloudUserKey(cloudUserKey);
-        }
-    }
 
-    /**
-     * User mapping from server id to cloud id.
-     */
-    private Map<String, String> getUserMap(AppCloudMigrationGateway gateway, String transferId) {
-        final PaginatedMapping paginatedMapping = gateway.getPaginatedMapping(transferId, "identity:user", BATCH_SIZE);
-        final Map<String, String> results = new HashMap<>();
-        while (paginatedMapping.next()) {
-            final Map<String, String> mappings = paginatedMapping.getMapping();
-            for (Map.Entry<String, String> entry : mappings.entrySet()) {
-                String serverUserKey = entry.getKey();
-                String cloudUserKey = entry.getValue();
-                if (serverUserKey.startsWith(USER_MAPPING_PREFIX)) {
-                    results.put(serverUserKey, cloudUserKey);
-                }
-            }
-        }
-        return Collections.unmodifiableMap(results);
-    }
 
     /**
      * User picker implementation with cache.

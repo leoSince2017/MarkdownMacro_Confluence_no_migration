@@ -24,12 +24,7 @@
     <packaging>atlassian-plugin</packaging>
     
     <dependencies>
-        
-        <dependency>
-            <groupId>com.atlassian</groupId>
-            <artifactId>atlassian-app-cloud-migration-listener</artifactId>
-            <version>1.0.2</version>
-        </dependency>
+
 
         <dependency>
             <groupId>junit</groupId>
@@ -187,9 +182,7 @@
                         <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
 
                         <Export-Package>
-                            com.atlassian.migration.app.listener,
-                            com.atlassian.migration.app.gateway,
-                            com.atlassian.migration.app,
+
                         </Export-Package>
 
                         <!-- Add package import here -->
