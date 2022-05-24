@@ -3,7 +3,7 @@ Confluence Markdown Macro - no dependence of migration
 
 [中文readme](README-Chinese.md)
 
-I cloned this from Atlas-Authority/MarkdownMacro, then deleted the dependence of 'com.atlassian.migration', because this dependence will cause some bug.
+I cloned this from [Atlas-Authority/MarkdownMacro](https://github.com/Atlas-Authority/MarkdownMacro), then deleted the dependence of 'com.atlassian.migration', because this dependence will cause some bug.
 
 If you got the same problem with me, just use it. You can:
 
