@@ -27,7 +27,7 @@ or
 
 (6) install this .jar file to your confluence
 
-# how to install .jar plugin to your confluence
+## how to install .jar plugin to your confluence
 
 (1) open your confluence
 

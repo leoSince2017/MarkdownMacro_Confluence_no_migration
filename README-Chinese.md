@@ -1,5 +1,7 @@
-Confluence Markdown Macro - no dependence of migration
+Confluence Markdown Macro - 去除migration依赖
 ========================
+
+[readme in English version](README.md)
 
 这个库来自Atlas-Authority/MarkdownMacro的直接克隆和修改，因为依赖“com.atlassian.migration”会导致bug，所以我不得不手动消去这个依赖，重新打包，来消去这个bug。
 
@@ -21,13 +23,13 @@ Confluence Markdown Macro - no dependence of migration
 
 （6）把这个jar文件安装到你的Confluence
 
-# 如何把 .jar 文件安装到confluence
+## 如何将 .jar 文件安装到confluence
 
 （1）打开confluence
 
 （2）管理员登录
 
-（3）设置-管理应用-右边“上传应用”
+（3）设置-管理应用-右边“上传应用”。如果你没弄过，可以看看官方教程 https://support.atlassian.com/confluence-cloud/docs/manage-your-apps/#Manage-apps
 
 （4）上传.jar文件，安装
 
