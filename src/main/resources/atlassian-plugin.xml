@@ -1,0 +1,128 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+	<param name="atlassian-data-center-compatible">true</param>
+    <param name="read-only-access-mode-compatible">true</param>
+    <param name="atlassian-data-center-status">compatible</param>
+    <param name="configure.url">/admin/plugins/markdown/config.action</param>
+    <param name="post.install.url">/admin/plugins/markdown/config.action</param>
+    </plugin-info>
+	
+	<xhtml-macro name="markdown"
+                 class="com.atlassian.plugins.confluence.markdown.MarkdownMacro"
+                 key="markdown"
+                 icon="/download/resources/com.atlassian.plugins.confluence.markdown.confluence-markdown-macro/images/pluginIcon.png"
+                 documentation-url="https://spec.commonmark.org/0.28/">
+        <category name="formatting"/>
+        <parameters>
+            <parameter name="LinkifyHeaders" type="boolean" default="true" />
+        </parameters>
+    </xhtml-macro>
+    
+    <macro name="markdown"
+           class="com.atlassian.plugins.confluence.markdown.MarkdownMacro"
+           key="markdown.wiki"
+           icon="/download/resources/com.atlassian.plugins.confluence.markdown.confluence-markdown-macro/images/pluginIcon.png"
+           documentation-url="https://spec.commonmark.org/0.28/">
+        <category name="formatting"/>
+        <parameters>
+            <parameter name="LinkifyHeaders" type="boolean" default="true" />
+        </parameters>
+    </macro>
+    
+    <xhtml-macro name="markdown-from-url"
+                 class="com.atlassian.plugins.confluence.markdown.MarkdownFromURLMacro"
+                 key="markdown-from-url"
+                 icon="/download/resources/com.atlassian.plugins.confluence.markdown.confluence-markdown-macro/images/pluginIcon.png"
+                 documentation-url="https://spec.commonmark.org/0.28/">
+        <category name="formatting"/>
+        <parameters>
+            <parameter name="LinkifyHeaders" type="boolean" default="true">
+                <option key="showNameInPlaceholder" value="false" />
+                <option key="showValueInPlaceholder" value="false" />
+            </parameter>
+            <parameter name="LinkAzureDevOpsRepository" type="string" default="">
+                <option key="showNameInPlaceholder" value="false" />
+                <option key="showValueInPlaceholder" value="false" />
+            </parameter>
+        </parameters>
+	</xhtml-macro>
+	
+    <macro name="markdown-from-url"
+           class="com.atlassian.plugins.confluence.markdown.MarkdownFromURLMacro"
+           key="markdown-from-url.wiki"
+           icon="/download/resources/com.atlassian.plugins.confluence.markdown.confluence-markdown-macro/images/pluginIcon.png"
+           documentation-url="https://spec.commonmark.org/0.28/">
+        <category name="formatting"/>
+        <parameters>
+            <parameter name="LinkifyHeaders" type="boolean" default="true">
+                <option key="showNameInPlaceholder" value="false" />
+                <option key="showValueInPlaceholder" value="false" />
+            </parameter>
+            <parameter name="LinkAzureDevOpsRepository" type="string" default="">
+                <option key="showNameInPlaceholder" value="false" />
+                <option key="showValueInPlaceholder" value="false" />
+            </parameter>
+        </parameters>
+    </macro>
+    
+    <web-section key="markdown-macro-admin-section" name="Markdown Macro admin section" location="system.admin" weight="10">
+        <label key="com.atlassian.plugins.confluence.markdown.admin.section.label"/>
+    </web-section>
+
+    <web-item key="markdown-macro-admin-config" name="Markdown Macro admin configuration" section="system.admin/markdown-macro-admin-section" weight="10">
+        <label key="com.atlassian.plugins.confluence.markdown.admin.config.label"/>
+        <link linkId="markdown-macro-admin-config-link">/admin/plugins/markdown/config.action</link>
+    </web-item>
+    
+    <resource type="i18n" name="markdown" location="markdownproperties/markdown"/>
+	<resource type="i18n" name="markdown-from-url" location="markdown-from-url-properties/markdown-from-url"/>
+    <resource type="download" name="images/" key="images" location="images/"/>
+
+    <web-resource key="highlightjs" name="Highlight.js" >
+        <resource type="download" name="highlight.min.js" location="js/highlight.min.js" />
+        <resource type="download" name="highlight.min.css" location="css/highlight.min.css" />
+    </web-resource>
+    
+    <web-resource key="markdown-configure-resources" name="Markdown Admin Configuration Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+
+        <resource type="download" name="markdown-macro-configure.css" location="css/markdown-configure.css"/>
+        <resource type="download" name="markdown-macro-configure.js" location="js/markdown-configure.js"/>
+
+        <context>markdown-configure-resources</context>
+    </web-resource>
+
+    <xwork key="configure-markdown-macro" name="Configure Markdown Macro">
+        <package name="markdown" extends="default" namespace="/admin/plugins/markdown">
+            <default-interceptor-ref name="defaultStack" />
+            <action name="config" class="com.atlassian.plugins.confluence.markdown.configuration.PluginAdminGetConfigurationAction" method="doDefault">
+                <result name="input" type="velocity">/markdown-macro-config.vm</result>
+            </action>
+
+            <action name="set" class="com.atlassian.plugins.confluence.markdown.configuration.PluginAdminSaveConfigurationAction" method="execute">
+                <interceptor-ref name="validatingStack"/>
+                <param name="RequireSecurityToken">true</param>
+
+                <result name="input" type="velocity">/xsrf-error.vm</result>
+                <result name="success" type="redirect">/admin/plugins/markdown/config.action</result>
+            </action>
+        </package>
+    </xwork>
+
+    <rest key="markdown-from-url-rest-endpoint" path="/markdown-from-url" version="1.0">
+        <description>Markdown From Url REST Endpoint</description>
+    </rest>
+
+    <web-resource key="hidden-field-parameter" name="Add a hidden field">
+        <resource type="download" name="hidden-parameter-field.js" location="js/hidden-parameter-field.js" />
+        <dependency>confluence.editor.actions:editor-macro-browser</dependency>
+        <context>macro-browser</context>
+    </web-resource>
+
+</atlassian-plugin>
