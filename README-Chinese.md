@@ -5,7 +5,7 @@ Confluence Markdown Macro - 去除migration依赖
 
 这个库来自Atlas-Authority/MarkdownMacro的直接克隆和修改，因为依赖“com.atlassian.migration”会导致bug，所以我不得不手动消去这个依赖，重新打包，来消去这个bug。
 
-如果你和我遇到了同样的问题，那你可以（1）下载这个库的源码自己编译，或者（2）下载jar文件之后安装
+如果你和我遇到了同样的问题，那你可以（1）下载这个库的源码自己编译，或者（2）下载[jar文件](https://github.com/leoSince2017/MarkdownMacro_Confluence_no_migration/releases)之后安装
 
 ## 如何从源码构建
 

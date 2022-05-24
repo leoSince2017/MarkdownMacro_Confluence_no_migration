@@ -11,7 +11,7 @@ If you got the same problem with me, just use it. You can:
 
 or
 
-(2) download .jar file and install
+(2) download [.jar file](https://github.com/leoSince2017/MarkdownMacro_Confluence_no_migration/releases) and install
 
 ## how to build from source-code
 
