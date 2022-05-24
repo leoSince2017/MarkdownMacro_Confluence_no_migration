@@ -1,18 +1,39 @@
-Confluence Markdown Macro
+Confluence Markdown Macro - no dependence of migration
 ========================
 
-This macro uses the Flexmark library to convert from Markdown to HTML within Confluence.
+[中文readme](README-Chinese.md)
 
-It can be accessed via:
+I cloned this from Atlas-Authority/MarkdownMacro, then deleted the dependence of 'com.atlassian.migration', because this dependence will cause some bug.
 
-*   Macro Browser
-*   {markdown} tags
-*   SOAP API using <ac:macro ac:name="markdown"></ac:macro>
+If you got the same problem with me, just use it. You can:
 
-This macro supports the following languages:
+(1) use this source-code and build by yourself
 
-*   English
-*   French
-*   German
+or
 
-This macro DOES NOT support inline HTML. This functionality was removed due to it being perceived as a security vulnerability.
+(2) download .jar file and install
+
+## how to build from source-code
+
+(1) go to https://developer.atlassian.com/server/framework/atlassian-sdk/install-the-atlassian-sdk-on-a-linux-or-mac-system/ to install java and atlassian sdk
+
+(2) download this repo
+
+(3) run 'atlas-run' in terminal(bash/powershell/ or whatever)  (in the first run it will spend a lot of time downloading and installing something, don't warry :)
+
+(4) if it has succeeded, you will be able to open http://localhost:1990/confluence . username and password are both 'admin'.
+
+(5) take target/confluence-markdown-macro-*.jar 
+
+(6) install this .jar file to your confluence
+
+# how to install .jar plugin to your confluence
+
+(1) open your confluence
+
+(2) login as administrator
+
+(3) install plugin by "manage apps", if you don't know, check https://support.atlassian.com/confluence-cloud/docs/manage-your-apps/#Manage-apps
+
+(4) upload and install .jar file.
+
